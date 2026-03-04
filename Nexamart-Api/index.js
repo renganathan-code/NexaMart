@@ -9,7 +9,7 @@ const app = express();
 
 //Add/Update your frontend url to avoid CORS error
 var corsOptions = {
-  origin: ["http://localhost:5173", "http://192.168.1.18:5173", "http://192.168.1.4:5173/", "https://nexa-mart-eaarju7iu-renganathan-p-s-projects.vercel.app"]
+  origin: ["http://localhost:5173", "http://192.168.1.18:5173", "http://192.168.1.4:5173/", "https://nexa-mart-one.vercel.app"]
 };
 
 app.use(cors(corsOptions));
