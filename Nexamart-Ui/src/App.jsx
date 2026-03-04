@@ -15,12 +15,6 @@ import { auth } from './config/firebase'
 import Footer from './components/common/Footer'
 
 function App() {
-  const { userData } = useSelector((state) => state.user);
-
-    const authCheck = (component) => {
-    return userData?.name ? component : <Navigate to="/login" />;
-    }
-  
 
   {/**
     const { userData } = useSelector((state) => state.user);
@@ -36,29 +30,29 @@ function App() {
         <Routes>
           <Route
             path='/'
-            element={authCheck(<Home />)}
+            element={(<Home />)}
           />
           <Route
             path='/product'
-            element={authCheck(<Product />)}
+            element={(<Product />)}
           />
           <Route
             path='/contact'
-            element={authCheck(<Contact />)}
+            element={(<Contact />)}
           />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route
             path='/productUpload'
-            element={authCheck(<ProductUpload />)}
+            element={(<ProductUpload />)}
           />
           <Route
             path='/checkout'
-            element={authCheck(<Checkout />)}
+            element={(<Checkout />)}
           />
           <Route
             path='/finalFun'
-            element={authCheck(<Final />)} />
+            element={(<Final />)} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer/>
