@@ -1,0 +1,16 @@
+# Ignore all node modules
+node_modules/
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore Firebase private key
+serviceKey.json
+
+# Ignore logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
