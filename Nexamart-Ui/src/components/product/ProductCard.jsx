@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
 
       <img
         className="w-60 h-60"
-        src={`${BASE_URL}/${product.image_path}`}
+        src={`${BASE_URL}/uploads/${product.image_path}`}
         alt="Product"
         onLoad={handleImageLoad}
         style={{ display: isLoading ? "none" : "block" }}

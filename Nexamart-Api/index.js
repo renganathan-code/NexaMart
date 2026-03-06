@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("./config/firebase.config")
 require("dotenv").config();
+app.use("/uploads", express.static("uploads"));
 
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/productRoute");
