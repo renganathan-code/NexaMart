@@ -1,47 +1,67 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { makeAuthenticatedRequest } from '../service/axiosService';
-import { uploadFileOnFirebase } from '../service/firebaseService';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-export const createProduct = createAsyncThunk(('product/create'), async({productImage, formData}, { rejectWithValue }) => {
+
+// CREATE PRODUCT API
+export const createProduct = createAsyncThunk(
+  "product/createProduct",
+  async ({ productImage, formData }, { rejectWithValue }) => {
     try {
-        const imagePath = await uploadFileOnFirebase(productImage)
-        formData.imagePath = imagePath?.metadata?.fullPath
-        const response = await makeAuthenticatedRequest('api/product/create', 'POST', formData)
 
-        return response
+      const data = new FormData();
+
+      data.append("title", formData.title);
+      data.append("description", formData.description);
+      data.append("price", formData.price);
+      data.append("image", productImage);
+
+      const response = await axios.post(
+        "http://localhost:5000/api/product/create",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
+
+      return response.data;
+
     } catch (error) {
-        return rejectWithValue({ message: error })
+      return rejectWithValue(error.response.data.message);
     }
-});
+  }
+);
+
 
 const productSlice = createSlice({
-  name: 'product',
+  name: "product",
+
   initialState: {
     loading: false,
-    productData: {},
-    status: null,
-    error: null
+    error: null,
+    success: false
   },
+
+  reducers: {},
+
   extraReducers: (builder) => {
-    builder
-    .addCase(createProduct.pending, (state) => {
-        state.loading = true,
-        state.productData = null,
-        state.error = null
-        state.message = null
-    })
-    .addCase(createProduct.fulfilled, (state, action) => {
-        state.loading = false,
-        state.productData = action.payload,
-        state.error = null,
-        state.status = "Success"
-    })
-    .addCase(createProduct.rejected, (state, action) => {
-        state.loading = false,
-        state.productData =null,
-        state.error = action.error,
-        state.status = "Error"
-    })
+
+    builder.addCase(createProduct.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(createProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+    });
+
+    builder.addCase(createProduct.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
   }
 });
 

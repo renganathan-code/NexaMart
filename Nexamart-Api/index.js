@@ -4,8 +4,35 @@ const bodyParser = require("body-parser");
 require("./config/firebase.config")
 require("dotenv").config();
 
+const mongoose = require("mongoose");
+const productRoutes = require("./routes/productRoute");
+
 
 const app = express();
+
+// middleware
+app.use(cors());
+app.use(express.json());
+
+// serve uploaded images
+app.use("/uploads", express.static("uploads"));
+
+// MongoDB connection
+mongoose.connect("mongodb://127.0.0.1:27017/nexamart", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log("MongoDB connected successfully");
+})
+.catch((err) => {
+  console.log("MongoDB connection error:", err);
+});
+
+// routes
+app.use("/api/product", productRoutes);
+
+
 
 //Add/Update your frontend url to avoid CORS error
 var corsOptions = {
