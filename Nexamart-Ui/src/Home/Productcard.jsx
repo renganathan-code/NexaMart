@@ -1,4 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
+import Checkout from '../components/product/Checkout';
+
 const ProductCard = ({ image, name, description, price }) => {
+
+  const dispatch = useDispatch();
+  const handleAddCart = () => {
+  dispatch(
+    Checkout({
+      title: name,
+      description: description,
+      price: price,
+      image: image
+    }))
+
+  alert("Product added to cart successfully!");
+};
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 p-2">
 
@@ -16,7 +32,7 @@ const ProductCard = ({ image, name, description, price }) => {
             Buy Now
           </button>
 
-          <button className="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg transition duration-300">
+          <button onClick={handleAddCart} className="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg transition duration-300">
             Add to Cart
           </button>
         </div>
