@@ -26,7 +26,7 @@ app.use(cors({
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/nexamart")
+mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/nexamart")
 .then(() => {
   console.log("MongoDB connected successfully");
 })

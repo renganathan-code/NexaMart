@@ -1,6 +1,7 @@
-import Product from "../models/productModel.js";
+const db = require("../models");
+const Product = db.product;
 
-export const createProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
   try {
 
     const { title, description, price } = req.body;
@@ -8,7 +9,7 @@ export const createProduct = async (req, res) => {
     if (!title || !price) {
       return res.status(400).json({
         success: false,
-        message: "Title and Price are required"
+        message: "Title and Price required"
       });
     }
 
@@ -29,7 +30,6 @@ export const createProduct = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: false,
       message: error.message
     });
   }

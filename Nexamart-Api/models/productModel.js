@@ -1,10 +1,19 @@
-import mongoose from "mongoose";
+module.exports = mongoose => {
+  const schema = mongoose.Schema(
+    {
+      title: String,
+      description: String,
+      price: Number,
+      image_path: String
+    },
+    { timestamps: true }
+  );
 
-const productSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  price: Number,
-  image: String
-});
+  schema.method("toJSON", function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
 
-export default mongoose.model("Product", productSchema);
+  return mongoose.model("product", schema);
+};
