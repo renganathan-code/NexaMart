@@ -5,23 +5,31 @@ export const createProduct = async (req, res) => {
 
     const { title, description, price } = req.body;
 
+    if (!title || !price) {
+      return res.status(400).json({
+        success: false,
+        message: "Title and Price are required"
+      });
+    }
+
     const product = new Product({
-      title: title,
-      description: description,
-      price: price,
-      image_path: req.file.filename
+      title,
+      description,
+      price,
+      image_path: req.file ? req.file.filename : ""
     });
 
-    await product.save();
+    const savedProduct = await product.save();
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "Product created successfully",
-      data: product
+      data: savedProduct
     });
 
   } catch (error) {
     res.status(500).json({
+      success: false,
       message: error.message
     });
   }

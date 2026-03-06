@@ -1,28 +1,32 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-require("./config/firebase.config")
 require("dotenv").config();
-app.use("/uploads", express.static("uploads"));
 
 const mongoose = require("mongoose");
-const productRoutes = require("./routes/productRoute");
+const path = require("path");
 
+const productRoutes = require("./routes/productRoute");
 
 const app = express();
 
 // middleware
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// CORS
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://nexa-mart-one.vercel.app"
+  ],
+  credentials: true
+}));
 
 // serve uploaded images
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/nexamart", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/nexamart")
 .then(() => {
   console.log("MongoDB connected successfully");
 })
@@ -33,45 +37,14 @@ mongoose.connect("mongodb://127.0.0.1:27017/nexamart", {
 // routes
 app.use("/api/product", productRoutes);
 
-
-
-//Add/Update your frontend url to avoid CORS error
-var corsOptions = {
-  origin: ["http://localhost:5173", "http://192.168.1.18:5173", "http://192.168.1.4:5173/", "https://nexa-mart-one.vercel.app"]
-};
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const db = require("./models");
-db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Connected to the database!");
-  })
-  .catch(err => {
-    console.log("Cannot connect to the database!", err);
-    process.exit();
-  });
-
-// simple route
+// test route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to NexaMart Application." });
 });
 
-require("./routes/user.routes")(app);
-require("./routes/product.routes")(app);
-
-// set port, listen for requests
+// start server
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server running on port ${PORT}`);
 });
