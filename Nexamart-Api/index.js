@@ -9,42 +9,30 @@ const productRoutes = require("./routes/productRoute");
 
 const app = express();
 
-// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://nexa-mart-one.vercel.app"
-  ],
-  credentials: true
+  ]
 }));
 
-// serve uploaded images
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/nexamart")
-.then(() => {
-  console.log("MongoDB connected successfully");
-})
-.catch((err) => {
-  console.log("MongoDB connection error:", err);
-});
+mongoose.connect(process.env.MONGO_URI)
+.then(()=> console.log("MongoDB connected"))
+.catch(err=> console.log(err));
 
-// routes
 app.use("/api/product", productRoutes);
 
-// test route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to NexaMart Application." });
+app.get("/", (req,res)=>{
+  res.json({message:"Welcome to NexaMart API"});
 });
 
-// start server
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT,()=>{
+  console.log(`Server running on ${PORT}`);
 });

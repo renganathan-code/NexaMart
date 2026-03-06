@@ -1,17 +1,9 @@
-const db = require("../models");
-const Product = db.product;
+const Product = require("../models/productModel");
 
 exports.createProduct = async (req, res) => {
   try {
 
     const { title, description, price } = req.body;
-
-    if (!title || !price) {
-      return res.status(400).json({
-        success: false,
-        message: "Title and Price required"
-      });
-    }
 
     const product = new Product({
       title,
@@ -29,8 +21,11 @@ exports.createProduct = async (req, res) => {
     });
 
   } catch (error) {
+
     res.status(500).json({
+      success: false,
       message: error.message
     });
+
   }
 };
