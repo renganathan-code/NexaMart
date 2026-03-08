@@ -1,20 +1,31 @@
-import { useDispatch, useSelector } from 'react-redux';
-import Checkout from '../components/product/Checkout';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Checkout from "../components/product/Checkout";
 
-const ProductCard = ({ image, name, description, price }) => {
+const ProductCard = ({ id, image, name, description, price }) => {
 
   const dispatch = useDispatch();
-  const handleAddCart = () => {
-  dispatch(
-    Checkout({
-      title: name,
-      description: description,
-      price: price,
-      image: image
-    }))
+  const navigate = useNavigate();
 
-  alert("Product added to cart successfully!");
-};
+  const handleAddCart = () => {
+    dispatch(
+      Checkout({
+        title: name,
+        description: description,
+        price: price,
+        image: image
+      })
+    );
+
+    alert("Product added to cart successfully!");
+  };
+
+  const handleBuyNow = () => {
+    navigate(`/product/${id}`, {
+      state: { id, image, name, description, price }
+    });
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 p-2">
 
@@ -28,13 +39,21 @@ const ProductCard = ({ image, name, description, price }) => {
         <p className="text-lg font-bold text-violet-800 mb-4">₹{price}</p>
 
         <div className="flex gap-3">
-          <button className="flex-1 border border-violet-500 text-violet-600 hover:bg-violet-100 py-2 rounded-lg transition duration-300">
+
+          <button
+            onClick={handleBuyNow}
+            className="flex-1 border border-violet-500 text-violet-600 hover:bg-violet-100 py-2 rounded-lg transition duration-300"
+          >
             Buy Now
           </button>
 
-          <button onClick={handleAddCart} className="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg transition duration-300">
+          <button
+            onClick={handleAddCart}
+            className="flex-1 bg-violet-500 hover:bg-violet-600 text-white py-2 rounded-lg transition duration-300"
+          >
             Add to Cart
           </button>
+
         </div>
       </div>
     </div>

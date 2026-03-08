@@ -13,6 +13,8 @@ import Contact from './components/Contact'
 import Home from './components/Home'
 import { auth } from './config/firebase'
 import Footer from './components/common/Footer'
+import ProductDetails from "../src/components/product/ProductDetails";
+
 
 function App() {
 
@@ -33,9 +35,15 @@ function App() {
             element={(<Home />)}
           />
           <Route
-            path='/product'
+            path='/products'
             element={(<Product />)}
           />
+
+          <Route 
+          path="/product/:id" 
+          element={<ProductDetails />}
+           />
+
           <Route
             path='/contact'
             element={(<Contact />)}

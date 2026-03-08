@@ -4,13 +4,14 @@ import { makeAuthenticatedRequest } from "../../service/axiosService";
 import { API_METHODS } from "../../utility/constant";
 import { getImageUrl } from "../../service/firebaseService";
 import { Spin } from "antd";
+import ProductList from "../../Home/Productdata";
 
 const Product = () => {
     const [productList, SetProductList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        makeAuthenticatedRequest('api/product/', API_METHODS.GET).then((response) => {
+        makeAuthenticatedRequest('https://your-api.onrender.com/api/product/', API_METHODS.GET).then((response) => {
             updateProductListWithImages(response.data)
         })
     }, []);
@@ -32,18 +33,18 @@ const Product = () => {
         setLoading(false)
     };
 
+    
     return ( <>
-        {loading ? 
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <Spin size="large" />
-        </div> :
-        <div className="flex justify-center flex-wrap gap-y-6 gap-x-6 mt-2">
-            { productList.map((product) => (
-                <div key={product.id}>
-                    <ProductCard product={product}/>
-                </div>
-            ))}
-        </div>}
+    <div className="bg-violet-200 text-center pt-10">
+        <input
+          type="text"
+          placeholder="Search products..."
+
+          className="w-full md:w-96 px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-violet-400"
+        />
+      </div>
+
+    <ProductList/>
     </> );
 }
 

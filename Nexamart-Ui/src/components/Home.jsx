@@ -1,5 +1,6 @@
 import Dashboardimg from "../assets/image/NexamartPreview.png"
 import ProductList from "../Home/Productdata";
+import Reviews from "../Home/reviews";
 
 function Home(){
     return(
@@ -17,8 +18,13 @@ function Home(){
                 <div className="absolute inset-0 bg-black/10"></div>
             </div>
         </div>
-          
+        
+        <h2 className="text-3xl font-bold pt-20 px-6 md:px-20 text-gray-800">
+            Featured Products
+        </h2>
+
     <ProductList/>
+    <Reviews/>
 
     </div>
     )

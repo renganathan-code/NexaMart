@@ -10,7 +10,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white p-5 shadow-[0_10px_25px_rgba(0,0,0,0.15)] relative">
+    <nav className="bg-white p-10 shadow-[0_10px_25px_rgba(0,0,0,0.15)] relative">
 
       <div className="flex items-center justify-between">
 
@@ -25,13 +25,13 @@ const Navbar = () => {
           <Link to="/products" className="text-black hover:text-violet-500">Products</Link>
           <Link to="/contact" className="text-black hover:text-violet-500">Contact</Link>
 
-          
-            <button
+          { userData ?"":<button
               onClick={() => navigate("/productUpload")}
               className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md"
             >
               Add Product
-            </button>
+            </button>}
+            
           
 
           <Link
