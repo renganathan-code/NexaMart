@@ -1,5 +1,9 @@
-require('dotenv').config();
+import dotenv from "dotenv";
 
-module.exports = {
-    url: `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
+dotenv.config();
+
+const dbConfig = {
+  url: `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
 };
+
+export default dbConfig;

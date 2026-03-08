@@ -1,4 +1,4 @@
-import dbConfig from '../config/db.config.js';
+import dbConfig from "../config/db.config.js";
 import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
