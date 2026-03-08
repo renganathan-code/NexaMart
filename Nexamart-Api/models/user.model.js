@@ -1,22 +1,25 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
-        {
-            name: String,
-            email: String,
-            address: String,
-            phone_number: String,
-            uid: String
-        },
-        {
-            timestamps: true
-        }
-    );
+export default (mongoose) => {
 
-    schema.method("toJSON", function() {
-        const { __v, _id, ...object } = this.toObject();
-        object.id = _id;
-        return object;
-    });
+  const schema = new mongoose.Schema(
+    {
+      name: String,
+      email: String,
+      address: String,
+      phone_number: String,
+      uid: String
+    },
+    {
+      timestamps: true
+    }
+  );
 
-    return mongoose.model("user", schema);
-}
+  schema.method("toJSON", function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
+
+  const User = mongoose.model("user", schema);
+
+  return User;
+};
