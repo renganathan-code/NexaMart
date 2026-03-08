@@ -4,11 +4,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import productRoutes from "./routes/productRoute.js";
-
+import userRoutes from "./routes/userRoute.js";
 dotenv.config();
 
 const app = express();
 
+
+app.use("/api/user", userRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
