@@ -1,6 +1,6 @@
 import db from "../models/index.js";
 const User = db.user;
-const firebase = require('firebase-admin');
+import firebase from "firebase-admin";
 
 // Create and Save a new User
 exports.create = async (req, res) => {
