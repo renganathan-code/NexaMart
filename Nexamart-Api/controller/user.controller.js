@@ -1,4 +1,4 @@
-const db = require("../models");
+import db from "../models/index.js";
 const User = db.user;
 const firebase = require('firebase-admin');
 
