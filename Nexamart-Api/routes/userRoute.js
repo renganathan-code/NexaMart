@@ -1,12 +1,11 @@
-module.exports = app => {
-    const users = require("../controller/user.controller");
-  
-    var router = require("express").Router();
-  
-    router.get("/", users.fetchAll);
-    router.post("/register", users.create);
-    router.post("/login", users.validateUser);
-    router.post("/validateToken", users.vaidateToken);
+import express from "express";
+import * as users from "../controller/user.controller.js";
 
-    app.use("/api/user", router);
-};
+const router = express.Router();
+
+router.get("/", users.fetchAll);
+router.post("/register", users.create);
+router.post("/login", users.validateUser);
+router.post("/validateToken", users.validateToken);
+
+export default router;

@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import path from "path";
 import productRoutes from "./routes/productRoute.js";
 import userRoutes from "./routes/userRoute.js";
+
+
 dotenv.config();
 
 const app = express();
