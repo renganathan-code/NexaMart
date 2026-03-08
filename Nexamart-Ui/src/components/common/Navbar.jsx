@@ -23,7 +23,11 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-black hover:text-violet-500">Home</Link>
           <Link to="/products" className="text-black hover:text-violet-500">Products</Link>
-          <Link to="/contact" className="text-black hover:text-violet-500">Contact</Link>      
+          <Link to="/contact" className="text-black hover:text-violet-500">Contact</Link> 
+
+          
+          <button onClick={() => {navigate("/productUpload")}} className="bg-green-500 text-white p-2 rounded-md mr-2">Add Product</button>
+     
 
           <Link
             to="/login"
